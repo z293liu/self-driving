@@ -149,7 +149,7 @@ for(int i= 0; i<6; i++)
     L[i].Y() = 0;
     L[i].Z() = 0;
   }
-  
+//  Keyboard.begin();
   Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
   Serial.setTimeout(10); // change default (1000ms) to have faster response time
   Serial.println("Running example: Servo motor actuation using messaging");
@@ -161,71 +161,63 @@ for(int i= 0; i<6; i++)
 
 void loop() {    
   if (Serial.available() > 0) {
-    
-  //  breaker = Serial.readString();
-    //Serial.print("I received: ");
-    //Serial.print(breaker);
-
-    
-    
+    char breaker=Keyboard.getKey();
       
-      if(Keyboard.getkey()=='q')
+      if(Keyboard.getKey()=='q')
       {
        T.X() += 0.1;
       }
-      if(Keyboard.getkey()== 'w')
+      if(Keyboard.getKey()== 'w')
       {
-         
-        T.Y() += 0.1;
+         T.Y() += 0.1;
       }      
-      case 'e': 
-        T.Z() += 2;
-        break;
-      case 'a': 
-        T.X() -= 10;
-        break;
+      if(Keyboard.getKey()== 'e'){
+        T.Z() += 0.1;
+      }
+      if (Keyboard.getKey()=='a'){
+        T.X() -= 0.1;
+      }
       
-      case 's': 
-        T.Y() -= 10;
-        break;
-      case 'd': 
-        T.Z() -= 2;
-        break;
-
+      if (Keyboard.getKey()== 's'){ 
+        T.Y() -= 0.1;
+      }
+      if (Keyboard.getKey()== 'd'){
+        T.Z() -=0.1;
+      }
       // Bank
-      case '4':
+      if (Keyboard.getKey()== '4'){
         Pang[0] += invrt2 * deg2rad;
         Pang[1] += invrt2 * deg2rad;
-        break;      
-      case '1':
+        }      
+      if (Keyboard.getKey()== '1'){
         Pang[0] -= invrt2 * deg2rad;
         Pang[1] -= invrt2 * deg2rad;
-        break;
+      }
       // Pitch
-      case '5':
+      if (Keyboard.getKey()== '5'){
         Pang[0] -= invrt2 * deg2rad;
         Pang[1] += invrt2 * deg2rad;
-        break;
-      case '2':
+      }
+      if (Keyboard.getKey()== '2'){
         Pang[0] += invrt2 * deg2rad;
         Pang[1] -= invrt2 * deg2rad;  
-        break;
-        
+      }        
       // Go to origin
-      case 'o':
+      if (Keyboard.getKey()== 'o'){
         T.X() = 0;
         T.Y() = 0;
         T.Z() = 173.4;
         for(int i = 0; i<2; i++){
           Pang[i] = 0;
           }
-        break; 
+      } 
 
       // Calibration (home, up, home)
-      case 'c':
+      if (Keyboard.getKey()== 'c'){
         T.X() = 0;
         T.Y() = 0;
         T.Z() = 175.4;
+      }
         for(int i = 0; i<2; i++){
           Pang[i] = 0;
         }
